@@ -2,39 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>pipoBoZaR - User Panel</title>
     <style>
         :root { --primary: #6366f1; --main: #7b1fa2; --bg: #f8fafc; --text: #1e293b; --accent: #e11d48; }
+        
         * { 
             box-sizing: border-box; 
             font-family: 'Inter', sans-serif; 
             -webkit-tap-highlight-color: transparent; 
-            /* মোবাইল ব্রাউজারে সিলেক্ট বা জুম রেসপন্স আটকানোর জন্য */
             touch-action: manipulation;
+            margin: 0;
+            padding: 0;
         }
 
-        /* কম্পিউটারে দেখলেও ব্যাকগ্রাউন্ড হালকা ডার্ক থাকবে এবং অ্যাপটি মাঝখানে থাকবে */
-        body { 
-            background: #cbd5e1; 
-            margin: 0; 
-            padding: 0; 
-            color: var(--text); 
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #fff;
             overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
         }
-        
+
         .container { 
             width: 100%;
-            max-width: 480px; /* মোবাইল স্ক্রিনের স্ট্যান্ডার্ড সাইজ */
-            margin: 0 auto; 
+            min-height: 100vh;
             background: #fff; 
-            min-height: 100vh; 
             position: relative; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.15); 
             padding-bottom: 70px; 
         }
 
@@ -55,7 +48,7 @@
         .btn-large { width: 100%; padding: 16px; background: #6366f1; color: #fff; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; }
 
         .content { padding: 15px; }
-        .grid-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 15px; }
+        .grid-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 15px; }
         
         .cat-box { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 18px; height: 125px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; text-align: center; padding: 10px; transition: 0.2s; }
         .cat-box:active { transform: scale(0.95); background: #f8fafc; }
@@ -76,8 +69,7 @@
         .st-Success, .st-Approved { background: #dcfce7; color: #15803d; }
         .st-Rejected { background: #fee2e2; color: #b91c1c; }
 
-        /* নেভিগেশন বারটি মোবাইল ফ্রেমের একদম নিচে ফিক্স করা হলো */
-        .nav { position: fixed; bottom: 0; width: 100%; max-width: 480px; background: #fff; border-top: 1px solid #f1f5f9; display: flex; padding: 10px 0; z-index: 1000; }
+        .nav { position: fixed; bottom: 0; left: 0; width: 100%; background: #fff; border-top: 1px solid #f1f5f9; display: flex; padding: 10px 0; z-index: 1000; }
         .nav-item { flex: 1; text-align: center; color: #94a3b8; cursor: pointer; font-size: 10px; font-weight: bold; }
         .nav-item.active { color: var(--main); }
     </style>
@@ -113,7 +105,7 @@
             <span>📢</span><marquee id="noticeText">আমাদের অ্যাপে আপনাকে স্বাগতম!</marquee>
         </div>
         <div class="content">
-            <div class="grid-row" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="grid-row">
                 <div class="cat-box" onclick="openService('likes')">
                     <img src="https://img.icons8.com/color/96/facebook-like.png" alt="Likes">
                     <b>Likes<br>Services</b>
@@ -124,7 +116,7 @@
                 </div>
             </div>
             
-            <div class="grid-row" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="grid-row">
                 <div class="cat-box" onclick="openService('weekly_lite')">
                     <img src="https://img.icons8.com/color/96/christmas-star.png" alt="Weekly Lite">
                     <b>WEEKLY<br>LITE</b>
@@ -196,6 +188,7 @@
 
 </div>
 
+<!-- Firebase SDK Module -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getDatabase, ref, set, get, onValue, push, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
