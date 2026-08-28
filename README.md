@@ -2,15 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-    <title>pipoBaZaR - User Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>pipoBoZaR - User Panel</title>
     <style>
         :root { --primary: #6366f1; --main: #7b1fa2; --bg: #f8fafc; --text: #1e293b; --accent: #e11d48; }
-        * { box-sizing: border-box; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background: #eff6ff; margin: 0; padding: 0; color: var(--text); overflow-x: hidden; }
+        * { 
+            box-sizing: border-box; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-tap-highlight-color: transparent; 
+            /* মোবাইল ব্রাউজারে সিলেক্ট বা জুম রেসপন্স আটকানোর জন্য */
+            touch-action: manipulation;
+        }
+
+        /* কম্পিউটারে দেখলেও ব্যাকগ্রাউন্ড হালকা ডার্ক থাকবে এবং অ্যাপটি মাঝখানে থাকবে */
+        body { 
+            background: #cbd5e1; 
+            margin: 0; 
+            padding: 0; 
+            color: var(--text); 
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
         
-        .container { max-width: 480px; margin: 0 auto; background: #fff; min-height: 100vh; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.05); padding-bottom: 70px; }
+        .container { 
+            width: 100%;
+            max-width: 480px; /* মোবাইল স্ক্রিনের স্ট্যান্ডার্ড সাইজ */
+            margin: 0 auto; 
+            background: #fff; 
+            min-height: 100vh; 
+            position: relative; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.15); 
+            padding-bottom: 70px; 
+        }
+
         .page { display: none; animation: fadeIn 0.3s ease; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -49,6 +76,7 @@ content="width=device-width, initial-scale=1.0">
         .st-Success, .st-Approved { background: #dcfce7; color: #15803d; }
         .st-Rejected { background: #fee2e2; color: #b91c1c; }
 
+        /* নেভিগেশন বারটি মোবাইল ফ্রেমের একদম নিচে ফিক্স করা হলো */
         .nav { position: fixed; bottom: 0; width: 100%; max-width: 480px; background: #fff; border-top: 1px solid #f1f5f9; display: flex; padding: 10px 0; z-index: 1000; }
         .nav-item { flex: 1; text-align: center; color: #94a3b8; cursor: pointer; font-size: 10px; font-weight: bold; }
         .nav-item.active { color: var(--main); }
@@ -168,7 +196,6 @@ content="width=device-width, initial-scale=1.0">
 
 </div>
 
-<!-- Firebase SDK Module -->
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getDatabase, ref, set, get, onValue, push, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -211,14 +238,12 @@ content="width=device-width, initial-scale=1.0">
     let selectedPkg = null;
     let currentProcess = {};
 
-    // Notice Sync fixed to 'app_notice'
     onValue(ref(db, 'app_notice'), (snapshot) => {
         if (snapshot.exists()) {
             document.getElementById('noticeText').innerText = snapshot.val();
         }
     });
 
-    // Check Auto Login Session on App Load
     window.addEventListener('DOMContentLoaded', () => {
         const savedUserNick = localStorage.getItem('userSessionNick');
         if (savedUserNick) {
@@ -302,7 +327,7 @@ content="width=device-width, initial-scale=1.0">
             const userData = snapshot.val();
             if(userData.pass === pass) {
                 currentUser = userData;
-                localStorage.setItem('userSessionNick', nk); // Save session in local storage
+                localStorage.setItem('userSessionNick', nk);
                 listenUserData(nk);
                 showPage('homePage');
             } else {
@@ -418,7 +443,7 @@ content="width=device-width, initial-scale=1.0">
 
     window.logout = function() {
         currentUser = null;
-        localStorage.removeItem('userSessionNick'); // Clear session on logout
+        localStorage.removeItem('userSessionNick');
         showPage('loginPage');
     };
 </script>
