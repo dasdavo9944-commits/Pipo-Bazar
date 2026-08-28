@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+content="width=device-width, initial-scale=1.0">
     <title>pipoBaZaR - User Panel</title>
     <style>
         :root { --primary: #6366f1; --main: #7b1fa2; --bg: #f8fafc; --text: #1e293b; --accent: #e11d48; }
